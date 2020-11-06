@@ -1,0 +1,8 @@
+
+spec:
+  pixelSize: 32
+  speed: 2     
+  screen:
+    width: 320
+    high: 640
+    
