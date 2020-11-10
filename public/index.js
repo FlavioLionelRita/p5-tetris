@@ -90,12 +90,3 @@ class TPiece extends Piece
     super(x,y,current,size,angle,speed,shape,'blue');
   }  
 }
-
-/* Ejercicios
-
-  1) completar las demas clases correspodientes a los tipos de figura.
-  2) Leer y entender la documentacion de p5 como rotar una figura  https://p5js.org/es/reference/#/p5/rotate
-  3) agregar a la funcion updatePosition la rotacion cuando se preciona keyIsDown(UP_ARROW) 
-  4) crear un matriz de 10 x 20  y a partir de esta dibujar una cuadricula
-
-*/
