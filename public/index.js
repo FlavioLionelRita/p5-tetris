@@ -74,7 +74,7 @@ class Piece
 
 class SquarePiece extends Piece
 {
-  constructor(x,y,current,size,angle,speed){
+  constructor(x,y,current,size,angle,color,speed){
     let shape = "##\r\n"
                +"##" 
     super(x,y,current,size,angle,speed,shape,'green');
@@ -88,5 +88,58 @@ class TPiece extends Piece
                +"##\r\n"
                +"#" 
     super(x,y,current,size,angle,speed,shape,'blue');
+  }  
+}
+class StickPiece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = "#\r\n"
+               +"#\r\n"
+               +"#\r\n"
+               +"#" 
+    super(x,y,current,size,angle,speed,shape,'fucsia');
+  }  
+}
+class LPiece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = "#\r\n"
+               +"#\r\n"
+               +"##"
+    super(x,y,current,size,angle,speed,shape,'yellow');
+  }  
+}
+class LLPiece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = "##\r\n"
+               +"#\r\n"
+               +"#"
+    super(x,y,current,size,angle,speed,shape,'pink');
+  }  
+}
+class T2Piece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = "##\r\n"
+               +"#\r\n"
+               +"#"
+    super(x,y,current,size,angle,speed,shape,'pink');
+  }  
+}
+class ZPiece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = "##\r\n"
+               +" ##"
+    super(x,y,current,size,angle,speed,shape,'cyan');
+  }  
+}
+class SPiece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = " ##\r\n"
+               +"##"
+    super(x,y,current,size,angle,speed,shape,'orange');
   }  
 }
