@@ -64,13 +64,17 @@ class Piece
         let _y=0;
         if(keyIsDown(LEFT_ARROW))_x-=this.speed;
         else if(keyIsDown(RIGHT_ARROW))_x+=this.speed;
-        else if(keyIsDown(UP_ARROW))_y-=this.speed;
+        else if(keyIsDown(UP_ARROW))_rotate(90); //REVISAR
         else if(keyIsDown(DOWN_ARROW))_y+=this.speed;       
         this.x  = parseInt(this.x + _x);
         this.y = parseInt(this.y + _y);
       }
     }
 }
+
+
+
+
 
 class SquarePiece extends Piece
 {
@@ -90,3 +94,58 @@ class TPiece extends Piece
     super(x,y,current,size,angle,speed,shape,'blue');
   }  
 }
+class StickPiece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = "#\r\n"
+               +"#\r\n"
+               +"#\r\n"
+               +"#" 
+    super(x,y,current,size,angle,speed,shape,'fucsia');
+  }  
+}
+class LPiece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = "#\r\n"
+               +"#\r\n"
+               +"##"
+    super(x,y,current,size,angle,speed,shape,'yellow');
+  }  
+}
+class LLPiece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = "##\r\n"
+               +"#\r\n"
+               +"#"
+    super(x,y,current,size,angle,speed,shape,'pink');
+  }  
+}
+class T2Piece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = "##\r\n"
+               +"#\r\n"
+               +"#"
+    super(x,y,current,size,angle,speed,shape,'pink');
+  }  
+}
+class ZPiece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = "##\r\n"
+               +" ##"
+    super(x,y,current,size,angle,speed,shape,'cyan');
+  }  
+}
+class SPiece extends Piece
+{
+  constructor(x,y,current,size,angle,color,speed){
+    let shape = " ##\r\n"
+               +"##"
+    super(x,y,current,size,angle,speed,shape,'orange');
+  }  
+}
+
+
