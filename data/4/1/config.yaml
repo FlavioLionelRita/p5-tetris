@@ -1,8 +1,8 @@
-
-spec:
-  pixelSize: 32
-  speed: 2     
-  screen:
-    width: 320
-    high: 640
+pixelSize: 32
+speed: 2
+cols: 10
+rows: 20     
+screen:
+  width: 320
+  high: 640
     

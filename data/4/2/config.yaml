@@ -3,7 +3,7 @@ spec:
   speed: 2     
   screen:
     width: 1200
-    high: 800
+    high: 100
     test: |
           
           
