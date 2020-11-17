@@ -17,8 +17,8 @@ async function setup() {
   canvas.parent('#canvasHolder');
   //game = new Game(config);,
 
-  pieces.push(new SquarePiece(5,0,true,config.spec.pixelSize,0,1));
-  pieces.push(new TPiece(0,0,false,config.spec.pixelSize,0,1));
+  pieces.push(new SquarePiece(5,0,false,config.spec.pixelSize,0,1));
+  pieces.push(new TPiece(0,0,true,config.spec.pixelSize,0,1));
 }
 async function draw() {
     background(0);
@@ -27,8 +27,6 @@ async function draw() {
       pieces[i].draw();  
     }      
 }
-
-
 
 
 class Piece
@@ -58,13 +56,14 @@ class Piece
      
 
     updatepPosition(){
-
+      angleMode(DEGREES)
       if(this.current){
         let _x=0;
         let _y=0;
         if(keyIsDown(LEFT_ARROW))_x-=this.speed;
         else if(keyIsDown(RIGHT_ARROW))_x+=this.speed;
-        else if(keyIsDown(UP_ARROW))_rotate(90); //REVISAR
+        //else if(keyIsDown(UP_ARROW))rotate(PI*10); //REVISAR
+        else if(keyIsDown(UP_ARROW))_y-=this.speed; 
         else if(keyIsDown(DOWN_ARROW))_y+=this.speed;       
         this.x  = parseInt(this.x + _x);
         this.y = parseInt(this.y + _y);
@@ -87,7 +86,7 @@ class SquarePiece extends Piece
 }
 class TPiece extends Piece
 {
-  constructor(x,y,current,size,angle,color,speed){
+  constructor(x,y,current,size,angle,speed){
     let shape = "#\r\n"
                +"##\r\n"
                +"#" 
@@ -96,7 +95,7 @@ class TPiece extends Piece
 }
 class StickPiece extends Piece
 {
-  constructor(x,y,current,size,angle,color,speed){
+  constructor(x,y,current,size,angle,speed){
     let shape = "#\r\n"
                +"#\r\n"
                +"#\r\n"
@@ -106,7 +105,7 @@ class StickPiece extends Piece
 }
 class LPiece extends Piece
 {
-  constructor(x,y,current,size,angle,color,speed){
+  constructor(x,y,current,size,angle,speed){
     let shape = "#\r\n"
                +"#\r\n"
                +"##"
@@ -115,7 +114,7 @@ class LPiece extends Piece
 }
 class LLPiece extends Piece
 {
-  constructor(x,y,current,size,angle,color,speed){
+  constructor(x,y,current,size,angle,speed){
     let shape = "##\r\n"
                +"#\r\n"
                +"#"
@@ -124,7 +123,7 @@ class LLPiece extends Piece
 }
 class T2Piece extends Piece
 {
-  constructor(x,y,current,size,angle,color,speed){
+  constructor(x,y,current,size,angle,speed){
     let shape = "##\r\n"
                +"#\r\n"
                +"#"
@@ -133,7 +132,7 @@ class T2Piece extends Piece
 }
 class ZPiece extends Piece
 {
-  constructor(x,y,current,size,angle,color,speed){
+  constructor(x,y,current,size,angle,speed){
     let shape = "##\r\n"
                +" ##"
     super(x,y,current,size,angle,speed,shape,'cyan');
@@ -141,7 +140,7 @@ class ZPiece extends Piece
 }
 class SPiece extends Piece
 {
-  constructor(x,y,current,size,angle,color,speed){
+  constructor(x,y,current,size,angle,speed){
     let shape = " ##\r\n"
                +"##"
     super(x,y,current,size,angle,speed,shape,'orange');
