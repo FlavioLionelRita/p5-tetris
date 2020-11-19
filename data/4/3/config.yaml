@@ -1,9 +1,9 @@
 sequence:
-  type : "random"
+  type : "orderRandom"
   shapes: LTSZJOI
   speedMin: 1
   speedMax: 5
 screen:
   pixelSize: 32
   cols: 10
-  rows: 20    
+  rows: 20      

@@ -1,7 +1,19 @@
-pixelSize: 32
-speed: 2
-cols: 10
-rows: 20     
+sequence:
+  type : "fixed"
+  sequence: 
+    - L1
+    - T2
+    - S1
+    - Z3
+    - J1
+    - O3
+    - I1
+    - Z3
+    - J1
+    - O3
+    - I2
+    - I1
 screen:
-  width: 320
-  high: 640
+  pixelSize: 32
+  cols: 10
+  rows: 20   

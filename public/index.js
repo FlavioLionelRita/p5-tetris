@@ -1,8 +1,5 @@
 
 let game;
-let currentPiece;
-let config;
-let mat;
 
 async function setup() {  
   let queryString = window.location.search;
@@ -10,64 +7,138 @@ async function setup() {
   let age =  urlParams.has('age')?urlParams.get('age'):4;
   let level = urlParams.has('level')?urlParams.get('level'):1;
   config = await $.ajax({url: '/age/'+age+'/level/'+level+'/config',type: 'GET'});
-  const canvas = createCanvas(config.screen.width, config.screen.high);
+  let width = config.screen.cols * config.screen.pixelSize;
+  let high = config.screen.rows * config.screen.pixelSize;
+  const canvas = createCanvas(width,high);
   canvas.parent('#canvasHolder');
-
-  mat = new Array(config.rows);
-  for(let i=0;i<config.rows;i++){
-    mat[i]=new Array(config.cols);
-    for(let j=0;j<config.rows;j++){
-      mat[i][j]="";
-    }
-  }
-  currentPiece = new TPiece(5,0,0,1);
+  game = new Game(config);
 }
 async function draw() {
     background(0);
-    if(currentPiece)      
-       currentPiece.draw(); 
-
-    if(mat){
-      for(let i=0;i<config.rows;i++){
-        for(let j=0;j<config.cols;j++){
-          if(mat[i][j]!=""){
-            fill(mat[i][j]);
-            rect(j*config.pixelSize,i*config.pixelSize, config.pixelSize , config.pixelSize );
-          }
-        }
-      }
-    }          
+    if(game)
+       game.draw();
 }
 
 
 
+class Game
+{
+    constructor(config){
+      this.config = config;
+      this.nextPieceStrategy = this.getNextPieceStrategy();
+
+      this.mat = new Array(this.config.screen.rows);
+        for(let i=0;i<this.config.screen.rows;i++){
+          this.mat[i]=new Array(this.config.screen.cols);
+          for(let j=0;j<this.config.screen.rows;j++){
+            this.mat[i][j]="";
+          }
+        }
+      this.currentPiece = this.getNextPiece();  
+    }
+    getNextPiece(){
+        let nextShapeInfo = this.nextPieceStrategy.nextPiece(); 
+        let shapeConfig =  this.config.shapes.find(p=> p.name == nextShapeInfo.name );
+        let shape = new TetrisShape(shapeConfig.name,shapeConfig.shape,shapeConfig.color);
+        return new Piece(5,0,0,this.config.screen.pixelSize,nextShapeInfo.speed,shape);
+    }
+    getNextPieceStrategy(){
+        switch(this.config.sequence.type)
+        {
+          case "random": return new RandomNextPiece(this.config);
+          case "fixed": return new FixedNextPiece(this.config);
+          case "orderRandom": return new OrderRandomNextPiece(this.config);
+          default: return new RandomNextPiece(this.config);
+        }
+    }
+
+    draw() {
+      background(0);
+      if(this.currentPiece)      
+         this.currentPiece.draw(); 
+  
+      if(this.mat){
+        for(let i=0;i<this.config.rows;i++){
+          for(let j=0;j<this.config.cols;j++){
+            if(this.mat[i][j]!=""){
+              fill(this.mat[i][j]);
+              rect(j*this.config.screen.pixelSize,i*this.config.screen.pixelSize, this.config.screen.pixelSize ,this.config.screen.pixelSize );
+            }
+          }
+        }
+      } 
+
+    }  
+}
+
+
+
+
+
+class NextPieceStrategy
+{
+  constructor(config){
+    this.config = config;
+  }
+  nextPiece(){ }
+}
+
+class RandomNextPiece extends NextPieceStrategy
+{
+  nextPiece(){
+      let index = Math.floor((Math.random() * this.config.shapes.length));
+      let speed = Math.floor((Math.random() * (this.config.sequence.speedMax-this.config.sequence.speedMin)) + this.config.sequence.speedMin);
+      return {name:this.config.sequence.shapes.charAt(index),speed:speed};
+  }
+}
+
+class OrderRandomNextPiece extends NextPieceStrategy
+{
+  nextPiece(){
+
+  }
+}
+
+class FixedNextPiece extends NextPieceStrategy
+{
+  nextPiece(){
+
+  }
+}
+
+
+class TetrisShape
+{
+  constructor(name,shape,color){
+      this.name = name;
+      this.color = color;
+      this.shape = shape;
+      let lines = this.shape.split('\n');
+      this.cols = lines.length; 
+      this.rows = lines[0].length;
+      this.positions = [];
+      this.mat= new Array(this.cols);
+      for(let i=0;i<this.cols;i++){
+        let line = lines[i];
+        this.mat[i] = new Array(this.rows);
+        for(let j=0;j<this.rows;j++){
+          this.mat[i][j] = line[j]=="-"?"":line[j];
+        }
+      } 
+  }
+}
 
 
 class Piece
 {
-    constructor(x,y,angle,speed,shape,color){
+    constructor(x,y,angle,size,speed,shape){
       this.x=x;
       this.y=y;
-      this.size = config.pixelSize;
       this.angle = angle;
-      this.color = color;
+      this.size = size;
       this.speed = speed;
       this.shape = shape;
-      let lines = this.shape.split('\r\n'); 
-      this.shapeCols = lines.length;
-      this.shapeRows = lines[0].length;
-      this.shapePositions = [];
-      this.shapeMat= new Array(this.shapeCols);
-      for(let i=0;i<this.shapeCols;i++){
-        let line = lines[i];
-        this.shapeMat[i] = new Array(this.shapeRows);
-        for(let j=0;j<this.shapeRows;j++){
-          this.shapeMat[i][j] = line[j];
-        }
-      } 
-      this.try= 0;
-      
-      
+      this.try= 0;      
     }
     draw(){
       
@@ -77,9 +148,9 @@ class Piece
         this.try=0;
       }
       
-      for(let i=0;i<this.shapePositions.length;i++){       
-        let p = this.shapePositions[i];
-        fill(this.color);
+      for(let i=0;i<this.shape.positions.length;i++){       
+        let p = this.shape.positions[i];
+        fill(this.shape.color);
         rect(p.x*this.size,p.y*this.size, this.size , this.size );
       }       
     }
@@ -99,9 +170,9 @@ class Piece
     }
     getNextShapePositions(nextPosition){
       let list = [];
-      for(let i=0;i<this.shapeCols;i++){       
-        for(let j=0;j<this.shapeRows;j++){
-          if(this.shapeMat[i][j]=="#"){
+      for(let i=0;i<this.shape.cols;i++){       
+        for(let j=0;j<this.shape.rows;j++){
+          if(this.shape.mat[i][j]=="#"){
            
             let _x;
             let _y;
@@ -115,12 +186,12 @@ class Piece
                 _y=nextPosition.y+j;                
                 break;
               case 180: 
-                _x= nextPosition.x+ (this.shapeRows - j);
+                _x= nextPosition.x+ (this.shape.rows - j);
                 _y=nextPosition.y+i; 
                 break;
               case 270: 
                 _x= nextPosition.x+i;
-                _y=nextPosition.y+(this.shapeRows-j);
+                _y=nextPosition.y+(this.shape.rows-j);
                 break; 
             } 
             list.push({x:_x,y:_y});
@@ -134,7 +205,7 @@ class Piece
         let p = list[i];
         if(p.x<0 || p.x>config.cols-1)return false;
         if(p.y<0 || p.y>config.rows-1)return false;        
-        if(mat[p.x][p.y]!="")return false;
+        if(game.mat[p.x][p.y]!="")return false;
       } 
       return true;
     }
@@ -146,7 +217,7 @@ class Piece
           this.x = nextPosition.x;
           this.y = nextPosition.y;
           this.angle = nextPosition.angle;
-          this.shapePositions = nextShapePositions;
+          this.shape.positions = nextShapePositions;
       }      
     }
 }
