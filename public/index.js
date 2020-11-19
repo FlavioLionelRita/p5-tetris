@@ -5,7 +5,6 @@ let config;
 let mat;
 
 async function setup() {  
-  //angleMode(DEGREES);
   let queryString = window.location.search;
   let urlParams= new URLSearchParams(queryString);
   let age =  urlParams.has('age')?urlParams.get('age'):4;
@@ -13,7 +12,6 @@ async function setup() {
   config = await $.ajax({url: '/age/'+age+'/level/'+level+'/config',type: 'GET'});
   const canvas = createCanvas(config.screen.width, config.screen.high);
   canvas.parent('#canvasHolder');
-  //game = new Game(config);,
 
   mat = new Array(config.rows);
   for(let i=0;i<config.rows;i++){
@@ -22,8 +20,6 @@ async function setup() {
       mat[i][j]="";
     }
   }
-
-  //pieces.push(new SquarePiece(0,0,false,0,1));
   currentPiece = new TPiece(5,0,0,1);
 }
 async function draw() {
@@ -40,11 +36,9 @@ async function draw() {
           }
         }
       }
-    }
-           
-      
-          
+    }          
 }
+
 
 
 
@@ -60,14 +54,15 @@ class Piece
       this.speed = speed;
       this.shape = shape;
       let lines = this.shape.split('\r\n'); 
-      this.shape_cols = lines.length;
-      this.shape_rows = lines[0].length;
-      this.shape_mat= new Array(this.shape_cols);
-      for(let i=0;i<this.shape_cols;i++){
+      this.shapeCols = lines.length;
+      this.shapeRows = lines[0].length;
+      this.shapePositions = [];
+      this.shapeMat= new Array(this.shapeCols);
+      for(let i=0;i<this.shapeCols;i++){
         let line = lines[i];
-        this.shape_mat[i] = new Array(this.shape_rows);
-        for(let j=0;j<this.shape_rows;j++){
-          this.shape_mat[i][j] = line[j];
+        this.shapeMat[i] = new Array(this.shapeRows);
+        for(let j=0;j<this.shapeRows;j++){
+          this.shapeMat[i][j] = line[j];
         }
       } 
       this.try= 0;
@@ -82,64 +77,77 @@ class Piece
         this.try=0;
       }
       
-      //  #
-      //  ##
-      //  #
-
-      //  ###
-      //   #
-      
+      for(let i=0;i<this.shapePositions.length;i++){       
+        let p = this.shapePositions[i];
+        fill(this.color);
+        rect(p.x*this.size,p.y*this.size, this.size , this.size );
+      }       
+    }
     
+    getNextPosition(){
+      let _x=0;
+      let _y=0;
+      let _angle=this.angle;
+      if(keyIsDown(LEFT_ARROW))_x-=1;
+      else if(keyIsDown(RIGHT_ARROW))_x+=1;
+      else if(keyIsDown(UP_ARROW))_angle=_angle==270?0:_angle+=90;
+      else if(keyIsDown(DOWN_ARROW))_y+=1;
 
-      for(let i=0;i<this.shape_cols;i++){       
-        for(let j=0;j<this.shape_rows;j++){
-          if(this.shape_mat[i][j]=="#"){
-            fill(this.color);
-            switch(this.angle) {
+      let next_x = parseInt(this.x + _x);
+      let next_y =  parseInt(this.y + _y); 
+      return {x:next_x,y:next_y,angle:_angle};
+    }
+    getNextShapePositions(nextPosition){
+      let list = [];
+      for(let i=0;i<this.shapeCols;i++){       
+        for(let j=0;j<this.shapeRows;j++){
+          if(this.shapeMat[i][j]=="#"){
+           
+            let _x;
+            let _y;
+            switch(nextPosition.angle) {
               case 0: 
-                rect((this.x+j)*this.size,(this.y+i)*this.size, this.size , this.size ); 
+                _x=nextPosition.x+j;
+                _y=nextPosition.y+i;
                 break; 
-              case 90: 
-                rect((this.x+i)*this.size,(this.y+j)*this.size, this.size , this.size ); 
+              case 90:
+                _x=nextPosition.x+i;
+                _y=nextPosition.y+j;                
                 break;
               case 180: 
-                rect((this.x+j)*this.size,(this.y+i)*this.size, this.size , this.size ); 
+                _x= nextPosition.x+ (this.shapeRows - j);
+                _y=nextPosition.y+i; 
                 break;
               case 270: 
-                rect((this.x+i)*this.size,(this.y+j)*this.size, this.size , this.size );  
+                _x= nextPosition.x+i;
+                _y=nextPosition.y+(this.shapeRows-j);
                 break; 
             } 
+            list.push({x:_x,y:_y});
           }
         } 
       }
-     
-       
+      return list;
     }
-     
-     
-
+    validateNextShapePositions(list){
+      for(let i=0;i<list.length;i++){ 
+        let p = list[i];
+        if(p.x<0 || p.x>config.cols-1)return false;
+        if(p.y<0 || p.y>config.rows-1)return false;        
+        if(mat[p.x][p.y]!="")return false;
+      } 
+      return true;
+    }
     updatepPosition(){
-            
-      let _x=0;
-      let _y=0;
-      if(keyIsDown(LEFT_ARROW)){
-        _x-=1;
-      }
-      else if(keyIsDown(RIGHT_ARROW)){
-        _x+=1;
-      }
-      else if(keyIsDown(UP_ARROW)){
-          if(this.angle==270)this.angle=0
-          else this.angle+=90;
-      }
-      else if(keyIsDown(DOWN_ARROW)){
-          _y+=1;
-      }
-      let next_x = parseInt(this.x + _x);
-      let next_y =  parseInt(this.y + _y); 
-      if(next_x>=0 && next_x<(config.cols -this.shape_cols ))this.x  = next_x;
-      if(next_y>=0 && next_y<=(config.rows-this.shape_rows))this.y = next_y;
-      
+
+      let nextPosition = this.getNextPosition();
+      let nextShapePositions = this.getNextShapePositions(nextPosition);
+      if(this.validateNextShapePositions(nextShapePositions)){
+          this.x = nextPosition.x;
+          this.y = nextPosition.y;
+          this.angle = nextPosition.angle;
+          this.shapePositions = nextShapePositions;
+      }      
     }
 }
 
