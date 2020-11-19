@@ -22,6 +22,8 @@ software characterictis
 
 * con drawIO crear un diagrama que contenga todas las clases.
 * recorer el codigo y ver si se puede reemplazar for por ForEach, o donde se pueda reemplazar codigo por funciones lambda.
-- [reference](https://lenguajejs.com/javascript/caracteristicas/array-functions/)
+  - [reference](https://lenguajejs.com/javascript/caracteristicas/array-functions/)
+* Leer sobre TypeScript
+  - [reference](https://softwarecrafters.io/typescript/typescript-tutorial-javascript-introduccion)  
 
 
