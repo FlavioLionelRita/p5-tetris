@@ -128,7 +128,6 @@ class TetrisShape
   }
 }
 
-
 class Piece
 {
     constructor(x,y,angle,size,speed,shape){
@@ -221,81 +220,3 @@ class Piece
       }      
     }
 }
-
-
-
-
-
-class SquarePiece extends Piece
-{
-  constructor(x,y,angle,speed){
-    let shape = "##\r\n"
-               +"##" 
-    super(x,y,angle,speed,shape,'green');
-  }
-
-}
-class TPiece extends Piece
-{
-  constructor(x,y,angle,speed){
-    let shape = "# \r\n"
-               +"##\r\n"
-               +"# " 
-    super(x,y,angle,speed,shape,'blue');
-  }  
-}
-class StickPiece extends Piece
-{
-  constructor(x,y,angle,speed){
-    let shape = "#\r\n"
-               +"#\r\n"
-               +"#\r\n"
-               +"#" 
-    super(x,y,angle,speed,shape,'fucsia');
-  }  
-}
-class LPiece extends Piece
-{
-  constructor(x,y,angle,speed){
-    let shape = "# \r\n"
-               +"# \r\n"
-               +"##"
-    super(x,y,angle,speed,shape,'yellow');
-  }  
-}
-class LLPiece extends Piece
-{
-  constructor(x,y,angle,speed){
-    let shape = "##\r\n"
-               +"# \r\n"
-               +"# "
-    super(x,y,angle,speed,shape,'pink');
-  }  
-}
-class T2Piece extends Piece
-{
-  constructor(x,y,angle,speed){
-    let shape = "##\r\n"
-               +"# \r\n"
-               +"# "
-    super(x,y,angle,speed,shape,'pink');
-  }  
-}
-class ZPiece extends Piece
-{
-  constructor(x,y,angle,speed){
-    let shape = "## \r\n"
-               +" ##"
-    super(x,y,angle,speed,shape,'cyan');
-  }  
-}
-class SPiece extends Piece
-{
-  constructor(x,y,angle,speed){
-    let shape = " ##\r\n"
-               +"## "
-    super(x,y,angle,speed,shape,'orange');
-  }  
-}
-
-
