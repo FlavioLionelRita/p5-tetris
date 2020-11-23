@@ -24,6 +24,7 @@ software characterictis
 * recorer el codigo y ver si se puede reemplazar for por ForEach, o donde se pueda reemplazar codigo por funciones lambda.
   - [reference](https://lenguajejs.com/javascript/caracteristicas/array-functions/)
 * Leer sobre TypeScript
-  - [reference](https://softwarecrafters.io/typescript/typescript-tutorial-javascript-introduccion)  
+  - [reference](https://softwarecrafters.io/typescript/typescript-tutorial-javascript-introduccion) 
+  - [enable tsc en windows](https://www.youtube.com/watch?v=hMtmLTsxdAM) 
 
 
