@@ -58,13 +58,14 @@ app.use(express.static('public'));
             app.listen(process.env.APP_PORT);
             console.log('Server running at: ' + process.env.APP_HOST + ':' + process.env.APP_PORT);
             process.exitCode = 0;
-            return [2 /*return*/, 0];
+            return [2, 0];
         }
         catch (error) {
             console.error(error);
             process.exitCode = -1;
-            return [2 /*return*/, -1];
+            return [2, -1];
         }
-        return [2 /*return*/];
+        return [2];
     });
 }); })();
+//# sourceMappingURL=index.js.map

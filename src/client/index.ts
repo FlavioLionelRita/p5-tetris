@@ -1,4 +1,6 @@
 
+import $ from "jquery";
+
 let game;
 
 async function setup() {  
@@ -6,7 +8,7 @@ async function setup() {
   let urlParams= new URLSearchParams(queryString);
   let age =  urlParams.has('age')?urlParams.get('age'):4;
   let level = urlParams.has('level')?urlParams.get('level'):1;
-  config = await $.ajax({url: '/age/'+age+'/level/'+level+'/config',type: 'GET'});
+  let config = await $.ajax({url: '/age/'+age+'/level/'+level+'/config',type: 'GET'});
   let width = config.screen.cols * config.screen.pixelSize;
   let high = config.screen.rows * config.screen.pixelSize;
   const canvas = createCanvas(width,high);

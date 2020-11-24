@@ -2,10 +2,10 @@ import path = require('path');
 import fs = require('fs');
 import yaml = require('js-yaml');
 
-class Category{
-    public name:string;
-    public from:number;
-    public to:number;
+interface Category{
+    name:string;
+    from:number;
+    to:number;
 } 
 
 export class ConfigReader

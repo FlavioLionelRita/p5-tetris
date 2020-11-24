@@ -1,4 +1,4 @@
-import path = require('path');
+import {path} from 'path';
 import express = require("express");
 import bodyParser = require("body-parser");
 const router = express.Router();
@@ -18,8 +18,7 @@ app.use(express.static('public'));
         app.get('/age/:age/level/:level/config', function (req:any, res:any) {
             let data:any = configReader.get(parseInt(req.params.age),parseInt(req.params.level));   
             res.send(data);
-        });       
-
+        }); 
         app.listen(process.env.APP_PORT);
         console.log('Server running at: '+process.env.APP_HOST+':'+process.env.APP_PORT); 
         process.exitCode = 0;
@@ -31,7 +30,3 @@ app.use(express.static('public'));
         return -1;
     }    
 })();
-
-
-
-

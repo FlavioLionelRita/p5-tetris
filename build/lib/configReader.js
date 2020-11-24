@@ -4,12 +4,7 @@ exports.ConfigReader = void 0;
 var path = require("path");
 var fs = require("fs");
 var yaml = require("js-yaml");
-var Category = /** @class */ (function () {
-    function Category() {
-    }
-    return Category;
-}());
-var ConfigReader = /** @class */ (function () {
+var ConfigReader = (function () {
     function ConfigReader(configPath) {
         this._configPath = configPath;
         this._categories = this.getCategories(this._configPath);
@@ -69,3 +64,4 @@ var ConfigReader = /** @class */ (function () {
     return ConfigReader;
 }());
 exports.ConfigReader = ConfigReader;
+//# sourceMappingURL=configReader.js.map

@@ -28,3 +28,8 @@ software characterictis
   - [enable tsc en windows](https://www.youtube.com/watch?v=hMtmLTsxdAM) 
 
 
+
+https://livebook.manning.com/book/typescript-quickly/chapter-10/v-9/87
+https://geeks.ms/adiazcervera/2015/09/06/typescript-iv-utilizacin-de-libreras-de-terceros/
+
+
