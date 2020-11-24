@@ -6,4 +6,4 @@ sequence:
 screen:
   pixelSize: 32
   cols: 10
-  rows: 20    
+  rows: 20 

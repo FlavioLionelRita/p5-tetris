@@ -5,7 +5,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const router = express.Router();
 const app = express();
-const Helper = require("./lib/helper");
 const Service = require("./lib/service");
 
 
@@ -17,18 +16,15 @@ app.use(express.static('public'));
 
 (async () => { 
     try {
-        let solution = {};        
-        solution.config = Helper.loadConfiguration(__dirname+'/.env');
-        solution.service = new Service(solution);
         
+        let service = new Service();
         app.get('/age/:age/level/:level/config', function (req, res) {
-            let data = solution.service.config(req.params.age,req.params.level);   
+            let data = service.config(req.params.age,req.params.level);   
             res.send(data);
-        });
-        
+        });        
 
-        app.listen(solution.config.APP_PORT);
-        console.log('Server running at: '+solution.config.APP_HOST+':'+solution.config.APP_PORT); 
+        app.listen(process.env.APP_PORT);
+        console.log('Server running at: '+process.env.APP_HOST+':'+process.env.APP_PORT); 
         process.exitCode = 0;
         return 0;
     }
