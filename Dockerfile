@@ -12,7 +12,6 @@ COPY ./lib ./lib
 COPY index.js index.js
 COPY ./data ./data
 COPY ./public ./public
-COPY config.json config.json
 COPY package*.json ./
 RUN npm install
 CMD [ "node","index"]
