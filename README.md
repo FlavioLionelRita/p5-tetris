@@ -29,7 +29,22 @@ software characterictis
 
 
 
+## use p5 with TypeScript
+https://codesandbox.io/s/8rgs6?file=/src/app.ts:383-399
+
+
 https://livebook.manning.com/book/typescript-quickly/chapter-10/v-9/87
 https://geeks.ms/adiazcervera/2015/09/06/typescript-iv-utilizacin-de-libreras-de-terceros/
 
+
+
+tsc -p .\src\server\tsconfig.server.json 
+
+# Webpack
+
+https://www.campusmvp.es/recursos/post/webpack-que-es-para-que-sirve-y-sus-ventajas-e-inconvenientes.aspx
+
+
+# generar en el server
+tsc -p .\src\server\tsconfig.server.json 
 

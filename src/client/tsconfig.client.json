@@ -1,13 +1,13 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "es2015",
-    "outDir": "../../public",
-    "outFile": "../../public/main.js",
-    "rootDir": "./",
-    "inlineSources": true,
     "target": "es5",
-    "allowSyntheticDefaultImports": true
+    "module": "es6",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "strict": true,
+    "sourceMap": true,
+    "outDir": "../../public/dist"
   },
   "include": [
     "**/*"

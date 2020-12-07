@@ -2,27 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "target": "es2017",
-    "sourceMap": true
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true
   }
 }
-
-// {
-//   "compilerOptions": {
-//       "module": "commonjs",
-//       "target": "es5",
-//       "noImplicitAny": false,      
-//       "outDir": "dist",
-//       "rootDir": "src",
-//       //"watch": true,
-//       "removeComments": true,
-//       "experimentalDecorators": true,
-//       "sourceMap":true,
-//       "inlineSources":true
-//   },
-//   "include": [
-//     "src/**/*"
-//   ],
-//   "exclude": [
-//     "./node_modules"
-//   ]
-// }
