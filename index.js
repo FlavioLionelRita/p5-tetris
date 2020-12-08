@@ -1,5 +1,6 @@
 // const fs = require('fs');
-// const path = require('path');
+const path = require('path');
+const ConfigExtented = require('config-extended');
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -17,8 +18,15 @@ app.use(express.static('public'));
 (async () => { 
     try {
         
-        let service = new Service();
+        let configExtented = new ConfigExtented();
+        await configExtented.loadPath(path.join(__dirname,'config'));
+        console.log(JSON.stringify(configExtented.config));
+
+
         app.get('/age/:age/level/:level/config', function (req, res) {
+
+            configExtented.config.game    
+
             let data = service.config(req.params.age,req.params.level);   
             res.send(data);
         });        
