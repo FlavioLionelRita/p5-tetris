@@ -24,6 +24,7 @@ app.use(express.static('public'));
             let age   = parseInt(req.params.age || 4);
             let level = parseInt(req.params.level || 1);
             let data = versions.find(p=> p.age.from <= age && p.age.to >= age && p.level ==level);
+            //console.log(data);
             res.send(data);
         });        
 
