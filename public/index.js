@@ -4,8 +4,8 @@ let game;
 async function setup() {  
   let queryString = window.location.search;
   let urlParams= new URLSearchParams(queryString);
-  let age =  urlParams.has('age')?urlParams.get('age'):4;
-  let level = urlParams.has('level')?urlParams.get('level'):1;
+  let age =  urlParams.get('age');
+  let level = urlParams.get('level');
   config = await $.ajax({url: '/age/'+age+'/level/'+level+'/config',type: 'GET'});
   let width = config.screen.cols * config.screen.pixelSize;
   let high = config.screen.rows * config.screen.pixelSize;
