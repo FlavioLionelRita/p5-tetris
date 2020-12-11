@@ -1,0 +1,5 @@
+_extends : [sequences.random.all,shapes.all]
+screen:
+  pixelSize: 32
+  cols: 10
+  rows: 20 

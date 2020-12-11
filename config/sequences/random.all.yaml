@@ -1,5 +1,5 @@
-_name: sequence.random.all
-type : random
-shapes: LTSZJOI
-speedMin: 1
-speedMax: 5
+sequence:
+  type : random
+  shapes: LTSZJOI
+  speedMin: 1
+  speedMax: 5
