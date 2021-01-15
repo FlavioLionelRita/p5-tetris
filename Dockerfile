@@ -8,10 +8,9 @@ RUN apk --update add \
   curl 
 
 # Bundle app source
-COPY ./lib ./lib
 COPY index.js index.js
-COPY ./data ./data
+COPY ./config ./config
 COPY ./public ./public
 COPY package*.json ./
 RUN npm install
-CMD [ "node","index"]
+CMD [ "npm","start"]

@@ -10,7 +10,6 @@ app.use(bodyParser.json());
 app.use("/", router); 
 app.use(express.static('public'));
 
-
 (async () => { 
     try {        
         let config = await ConfigExtents.apply(path.join(__dirname,'config'));
@@ -20,10 +19,9 @@ app.use(express.static('public'));
         }
 
         app.get('/age/:age/level/:level/config', function (req, res) {
-            let age   = parseInt(req.params.age || 4);
-            let level = parseInt(req.params.level || 1);
+            let age   = req.params.age!='null'?parseInt(req.params.age):4;
+            let level = req.params.level!='null'?parseInt(req.params.level):1;
             let data = versions.find(p=> p.age.from <= age && p.age.to >= age && p.level ==level);
-            //console.log(data);
             res.send(data);
         });        
 

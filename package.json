@@ -1,13 +1,10 @@
 {
   "name": "p5-tetris",
   "version": "1.0.0",
-  "description": "tetris excercise",
+  "description": "tetris exercise",
   "main": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index"
   },
   "repository": {
     "type": "git",
@@ -15,7 +12,8 @@
   },
   "keywords": [
     "tetris",
-    "excercise",
+    "game",
+    "exercise",
     "p5"
   ],
   "author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
